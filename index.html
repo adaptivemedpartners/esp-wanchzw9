@@ -69,21 +69,7 @@
     <p class="hero-sub">Soccer &amp; football · all times Central (CT)</p>
   </header>
 
-  <div id="login">
-    <div class="card">
-      <h2 style="margin-top:0">Sign in</h2>
-      <p class="meta">This page is private to the family. Enter the shared password.</p>
-      <form id="lf" autocomplete="on">
-        <input type="text" name="username" value="family" autocomplete="username" style="display:none" />
-        <input id="pw" type="password" autocomplete="current-password" placeholder="Password" required />
-        <label class="meta"><input id="rem" type="checkbox" checked /> Keep me signed in on this phone</label>
-        <div id="err"></div>
-        <button class="btn" type="submit" id="go">Open</button>
-      </form>
-    </div>
-  </div>
-
-  <div id="app" class="hidden">
+  <div id="app">
     <section><div class="card next" id="next"></div></section>
     <section>
       <h2>Upcoming</h2>
@@ -98,25 +84,7 @@
 <script>
 (function(){
   var KEY="ethan-sports-pw", DATA=null, filter="games";
-  var b64=function(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0)})};
-  async function decrypt(pw){
-    var r=await fetch("data.enc.json",{cache:"no-store"}); var e=await r.json();
-    var base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
-    var key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(e.salt),iterations:e.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
-    var pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(e.iv)},key,b64(e.ct));
-    return JSON.parse(new TextDecoder().decode(pt));
-  }
-  async function tryLogin(pw,remember,silent){
-    var err=document.getElementById("err"); err.textContent=silent?"":"Checking…";
-    try{ DATA=await decrypt(pw); }catch(x){ if(!silent) err.textContent="That password didn't work."; localStorage.removeItem(KEY); return; }
-    if(remember) localStorage.setItem(KEY,pw);
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
-    render();
-  }
-  document.getElementById("lf").addEventListener("submit",function(ev){ev.preventDefault();
-    tryLogin(document.getElementById("pw").value,document.getElementById("rem").checked,false);});
-  var saved=localStorage.getItem(KEY); if(saved) tryLogin(saved,true,true);
+  fetch("data.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){DATA=d;render();});
 
   // ---- time helpers (everything is America/Chicago) ----
   function nowCT(){var p={};new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});
@@ -204,8 +172,7 @@
     document.getElementById("recent").innerHTML=past.map(row).join("");
     document.getElementById("recent-sec").classList.toggle("hidden",!past.length);
     var u=new Date(DATA.updated),us=u.toLocaleString("en-US",{timeZone:"America/Chicago",weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
-    document.getElementById("foot").innerHTML='<p><strong>Updated '+us+' CT</strong></p><p>Soccer: '+esc(DATA.teams.soccer.name)+' · jersey '+esc(DATA.teams.soccer.jersey)+'<br>Football: '+esc(DATA.teams.football.name)+' · '+esc(DATA.teams.football.coach)+'</p><p>Sources:</p><ul>'+DATA.sources.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ul><p><button class="btn-ghost" id="out">Sign out on this phone</button></p>';
-    document.getElementById("out").onclick=function(){localStorage.removeItem(KEY);location.reload()};
+    document.getElementById("foot").innerHTML='<p><strong>Updated '+us+' CT</strong></p><p>Soccer: '+esc(DATA.teams.soccer.name)+' · jersey '+esc(DATA.teams.soccer.jersey)+'<br>Football: '+esc(DATA.teams.football.name)+' · '+esc(DATA.teams.football.coach)+'</p><p>Sources:</p><ul>'+DATA.sources.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ul>';
   }
 })();
 </script>
