@@ -6,67 +6,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="theme-color" content="#f3e4e8" />
-<title>Ethan</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="theme-color" content="#0b0f14" />
+<title>Ethan #19 · Game Day</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-  :root{--blush:#f6e8ec;--rose:#d4b0ba;--dusty:#b88996;--ink:#3d3336;--muted:#7a6a6e;--cream:#fbf7f2;--sand:#f3ebe3;--champagne:#c9b896;--gold:#b8a07a;--ocean:#6fa8b2;--ocean-deep:#3d7a84;--card:#fffdfb;--line:rgba(184,160,122,.35);--warn:#a8642a}
-  *{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
-  body{margin:0;font-family:"Nunito",system-ui,sans-serif;color:var(--ink);line-height:1.5;min-height:100vh;
-    background:radial-gradient(ellipse 90% 40% at 50% 0%,#f8eef1 0%,transparent 55%),linear-gradient(180deg,#fbf7f2 0%,#f6e8ec 42%,#eef4f5 100%)}
-  .wrap{width:100%;max-width:430px;margin:0 auto;min-height:100vh;padding:0 0 max(36px,env(safe-area-inset-bottom));
-    background:linear-gradient(180deg,#fffaf7 0%,#fbf6f3 28%,#f7eef1 70%,#f3f7f8 100%);box-shadow:0 0 0 1px rgba(201,184,150,.18),0 18px 50px rgba(61,51,54,.08)}
-  .hero{padding:34px 22px 22px;text-align:center;background:linear-gradient(160deg,#3d7a84 0%,#6fa8b2 55%,#b88996 100%);color:#fffaf7}
-  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#f3e6c8;margin:0 0 6px}
-  .names{font-family:"Great Vibes",cursive;font-size:52px;line-height:1.05;margin:0 0 4px;font-weight:400;text-shadow:0 2px 16px rgba(0,0,0,.2)}
-  .hero-sub{font-family:"Cormorant Garamond",serif;font-size:18px;font-style:italic;margin:0;color:#fff6ee}
-  .rule{width:72px;height:1px;margin:10px auto 8px;background:linear-gradient(90deg,transparent,#e8d5b0,transparent)}
-  section{padding:18px 18px 6px}
-  h2{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:500;margin:0 0 10px;color:var(--ocean-deep)}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 22px rgba(61,51,54,.06)}
-  .next .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dusty);font-weight:800;margin:0}
-  .next .leave{font-size:44px;font-weight:800;line-height:1.05;margin:6px 0 2px;color:var(--ink)}
-  .next .leave small{font-size:16px;font-weight:700;color:var(--muted)}
-  .next .what{font-family:"Cormorant Garamond",serif;font-size:22px;margin:6px 0 2px}
-  .meta{color:var(--muted);font-size:14px;margin:2px 0}
+  :root{--bg:#0b0f14;--panel:#141b24;--panel2:#1b2430;--navy:#0f2140;--line:rgba(255,255,255,.08);--txt:#eef2f6;--muted:#93a1b2;
+    --turf:#39ff6a;--turf-d:#1db954;--orange:#ff7a1a;--red:#e63946;--gold:#ffc83d}
+  *{box-sizing:border-box} html{-webkit-text-size-adjust:100%;background:var(--bg)}
+  body{margin:0;font-family:"Inter",system-ui,sans-serif;color:var(--txt);line-height:1.45;min-height:100vh;background:
+    radial-gradient(ellipse 80% 30% at 50% 0%,rgba(57,255,106,.08),transparent 60%),
+    repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,255,255,.025) 79px 80px),var(--bg)}
+  .wrap{width:100%;max-width:560px;margin:0 auto;min-height:100vh;padding:0 0 max(36px,env(safe-area-inset-bottom));background:linear-gradient(180deg,#0e141c,#0b0f14 40%);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  /* hero: stadium + turf stripes + yard lines */
+  .hero{position:relative;overflow:hidden;padding:30px 20px 22px;background:
+      repeating-linear-gradient(90deg,transparent 0 46px,rgba(255,255,255,.07) 46px 48px),
+      repeating-linear-gradient(90deg,#0f3d22 0 24px,#0c341d 24px 48px);
+    border-bottom:4px solid var(--turf)}
+  .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,20,.88) 0%,rgba(15,33,64,.72) 55%,rgba(11,15,20,.35) 100%)}
+  .hero>*{position:relative}
+  .eyebrow{font:600 12px "Oswald",sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--turf);margin:0 0 4px}
+  .jersey{display:flex;align-items:flex-end;gap:14px}
+  .names{font-family:"Bebas Neue","Oswald",sans-serif;font-weight:400;font-size:88px;line-height:.86;margin:0;letter-spacing:.02em;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.5)}
+  .num{font-family:"Bebas Neue",sans-serif;font-size:88px;line-height:.86;color:transparent;-webkit-text-stroke:2px var(--orange);text-shadow:4px 4px 0 rgba(255,122,26,.25)}
+  .hero-sub{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;font:600 13px "Oswald",sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  .hero-sub span{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:4px;padding:4px 9px}
+  .hero-sub .s{color:var(--turf);border-color:rgba(57,255,106,.4)} .hero-sub .f{color:var(--orange);border-color:rgba(255,122,26,.45)}
+  section{padding:20px 16px 4px}
+  h2{font:700 24px "Oswald",sans-serif;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+  h2:before{content:"";width:6px;height:22px;background:var(--turf);transform:skewX(-14deg)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+  /* scoreboard next up */
+  .next{padding:0;overflow:hidden;border:2px solid #263241;background:#090c10;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.03)}
+  .next.soccer-next{border-color:rgba(57,255,106,.55)} .next.football-next{border-color:rgba(255,122,26,.6)}
+  .sb-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(90deg,var(--navy),#14294d);border-bottom:2px solid #000}
+  .next .lbl{font:700 14px "Oswald",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#fff;margin:0}
+  .sb-date{margin:0;font:600 14px "Oswald",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+  .sb-board{margin:14px 14px 8px;padding:10px 12px 8px;border-radius:6px;text-align:center;
+    background:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.5px) 0 0/6px 6px,#050608;border:1px solid #1f2a36}
+  .sb-cap{font:700 13px "Oswald",sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .next .leave{font-family:"Bebas Neue",sans-serif;font-size:76px;line-height:.95;color:var(--gold);text-shadow:0 0 18px rgba(255,200,61,.45)}
+  .next.soccer-next .leave{color:var(--turf);text-shadow:0 0 18px rgba(57,255,106,.45)}
+  .next .leave small{font-size:28px;color:var(--muted);text-shadow:none}
+  .next .what{font:600 20px "Oswald",sans-serif;text-transform:uppercase;letter-spacing:.03em;margin:4px 14px 4px}
+  .next>.meta,.next>p.meta{margin:2px 14px} .next>.meta:last-child{margin-bottom:14px}
+  .meta{color:var(--muted);font-size:14px;margin:3px 0}
   .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
-  .chip{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--dusty);border-radius:999px;padding:7px 14px;font:600 13px "Nunito",sans-serif;cursor:pointer}
-  .chip.on{background:var(--ocean-deep);color:#fff;border-color:var(--ocean-deep)}
-  .week{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--gold);margin:16px 2px 6px}
-  .ev{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin:0 0 8px}
-  .ev.dim{opacity:.62}
-  .d{min-width:52px;text-align:center;border-right:1px solid var(--line);padding-right:10px}
-  .d .dow{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--dusty);text-transform:uppercase}
-  .d .dn{font-family:"Cormorant Garamond",serif;font-size:28px;line-height:1}
-  .d .mo{font-size:11px;color:var(--muted)}
-  .t{font-weight:800;font-size:15px}
-  .x{font-size:14px}
-  .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 8px;border-radius:999px;margin:0 4px 3px 0;text-transform:uppercase;vertical-align:middle}
-  .soccer{background:#e4f1f3;color:var(--ocean-deep)} .football{background:#f4ece0;color:#8a6a35}
-  .practice{background:#efe9f3;color:#7b5a8a} .flag{background:#fbe7dc;color:var(--warn)}
-  .leavepill{display:inline-block;background:var(--ink);color:#fff;border-radius:8px;padding:1px 8px;font-weight:800;font-size:13px}
-  .tbd{color:var(--warn);font-weight:700}
-  a{color:var(--ocean-deep)}
-  ul{margin:0;padding-left:20px} li{margin:6px 0;font-size:14.5px}
-  footer{padding:18px;color:var(--muted);font-size:12.5px}
-  .btn{display:inline-block;background:var(--ocean-deep);color:#fff;border:0;border-radius:999px;padding:11px 22px;font:700 15px "Nunito",sans-serif;cursor:pointer}
-  .btn-ghost{background:none;border:0;color:var(--dusty);font:600 13px "Nunito",sans-serif;text-decoration:underline;cursor:pointer}
-  #login{padding:28px 22px}
-  #login input[type=password]{width:100%;font:16px "Nunito",sans-serif;padding:12px 14px;border:1px solid var(--rose);border-radius:12px;margin:10px 0;background:#fff}
-  #err{color:#a33;font-size:14px;min-height:20px}
+  .chip{flex:0 0 auto;border:1px solid #2a3644;background:var(--panel2);color:var(--txt);border-radius:4px;padding:8px 14px;font:600 14px "Oswald",sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transform:skewX(-8deg)}
+  .chip.on{background:var(--turf);color:#04140a;border-color:var(--turf)}
+  .week{font:600 13px "Oswald",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:18px 2px 8px;display:flex;align-items:center;gap:10px}
+  .week:after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,#2d3a49 0 8px,transparent 8px 14px)}
+  .ev{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-left:5px solid #3a4656;border-radius:8px;padding:11px 12px;margin:0 0 8px}
+  .ev.soccer-ev{border-left-color:var(--turf-d)} .ev.football-ev{border-left-color:var(--orange)}
+  .ev.dim{opacity:.45;filter:grayscale(.8)}
+  .ev .body{min-width:0;flex:1}
+  .d{min-width:50px;text-align:center;border-right:1px solid var(--line);padding-right:10px}
+  .d .dow{font:700 12px "Oswald",sans-serif;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .d .dn{font-family:"Bebas Neue",sans-serif;font-size:38px;line-height:.95;color:#fff}
+  .d .mo{font:600 11px "Oswald",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .t{font:600 17px "Oswald",sans-serif;text-transform:uppercase;letter-spacing:.03em;margin-top:2px}
+  .x{font-size:14px;color:#cfd8e2}
+  .tag{display:inline-flex;align-items:center;gap:4px;font:700 11px "Oswald",sans-serif;letter-spacing:.12em;padding:2px 8px;border-radius:3px;margin:0 4px 3px 0;text-transform:uppercase;vertical-align:middle}
+  .tag i{font-style:normal;font-size:12px;letter-spacing:0}
+  .soccer{background:rgba(57,255,106,.14);color:var(--turf);border:1px solid rgba(57,255,106,.35)}
+  .football{background:rgba(255,122,26,.14);color:var(--orange);border:1px solid rgba(255,122,26,.4)}
+  .practice{background:rgba(120,160,255,.12);color:#9db8ff;border:1px solid rgba(120,160,255,.3)}
+  .setting,.tourney{background:rgba(255,255,255,.06);color:#d6dee8;border:1px solid rgba(255,255,255,.15)}
+  .flag{background:rgba(230,57,70,.15);color:#ff8a93;border:1px solid rgba(230,57,70,.4)}
+  .leavepill{display:inline-block;background:var(--gold);color:#111;border-radius:3px;padding:2px 9px;font:700 14px "Oswald",sans-serif;letter-spacing:.06em;text-transform:uppercase}
+  .soccer-ev .leavepill{background:var(--turf);color:#04140a}
+  .tbd{color:var(--red);font-weight:700}
+  a{color:#7fd4ff;text-decoration:none;border-bottom:1px solid rgba(127,212,255,.35)}
+  ul{margin:0;padding-left:20px} li{margin:8px 0;font-size:14.5px}
+  footer{padding:20px 16px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:18px}
+  footer strong{color:var(--txt);font:600 14px "Oswald",sans-serif;letter-spacing:.08em;text-transform:uppercase}
   .hidden{display:none!important}
+  @media (min-width:700px){
+    .wrap{box-shadow:0 0 60px rgba(0,0,0,.6)}
+    .hero{padding:44px 32px 28px} .names,.num{font-size:120px}
+    section{padding:24px 28px 6px} footer{padding:22px 28px}
+    .next .leave{font-size:96px}
+    .chips{flex-wrap:wrap;overflow:visible}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <p class="eyebrow">Freeman family · Fall 2026</p>
-    <h1 class="names">Ethan</h1>
-    <div class="rule"></div>
-    <p class="hero-sub">Soccer &amp; football · all times Central (CT)</p>
+    <p class="eyebrow">Freeman · Fall 2026 · Game Day</p>
+    <div class="jersey"><h1 class="names">Ethan</h1><span class="num">#19</span></div>
+    <p class="hero-sub"><span class="s">⚽ Soccer</span><span class="f">🏈 Football</span><span>All times CT</span></p>
   </header>
 
   <div id="app">
@@ -83,7 +115,7 @@
 </div>
 <script>
 (function(){
-  var KEY="ethan-sports-pw", DATA=null, filter="games";
+  var DATA=null, filter="games";
   fetch("data.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){DATA=d;render();});
 
   // ---- time helpers (everything is America/Chicago) ----
@@ -130,18 +162,20 @@
   }
   function isPast(e,n){var last=e.end_date||e.date; if(last<n.date) return true;
     if(last>n.date) return false; var t=e.end||e.start; return t? toMin(t)+(e.end?0:90)<toMin(n.time):false;}
-  function tags(e){var h='<span class="tag '+e.sport+'">'+e.sport+'</span>';
+  var ICON={soccer:"\u26BD",football:"\uD83C\uDFC8"};
+  function sportTag(s){return '<span class="tag '+s+'">'+(ICON[s]?'<i>'+ICON[s]+'</i>':'')+s+'</span>'}
+  function tags(e){var h=sportTag(e.sport);
     if(e.kind==="practice") h+='<span class="tag practice">practice</span>';
-    if(e.kind==="tournament") h+='<span class="tag soccer">tournament</span>';
-    if(e.setting) h+='<span class="tag soccer">'+e.setting+'</span>';
+    if(e.kind==="tournament") h+='<span class="tag tourney">tournament</span>';
+    if(e.setting) h+='<span class="tag setting">'+e.setting+'</span>';
     if(e.flag) h+='<span class="tag flag">'+esc(e.flag)+'</span>';
     return h;}
   function row(e){
     var d=dObj(e.date),dates=e.end_date?nice(e.date)+" – "+nice(e.end_date):"";
-    return '<div class="ev'+(e.not_ethan?" dim":"")+'"><div class="d"><div class="dow">'+DOW[d.getUTCDay()]+'</div><div class="dn">'+d.getUTCDate()+'</div><div class="mo">'+MON[d.getUTCMonth()]+(e.date_approx?" ~":"")+'</div></div><div>'
+    return '<div class="ev '+e.sport+'-ev'+(e.not_ethan?" dim":"")+'"><div class="d"><div class="dow">'+DOW[d.getUTCDay()]+'</div><div class="dn">'+d.getUTCDate()+'</div><div class="mo">'+MON[d.getUTCMonth()]+(e.date_approx?" ~":"")+'</div></div><div class="body">'
       +tags(e)+'<div class="t">'+esc(e.title)+'</div><div class="x">'+esc(e.detail)+'</div>'
       +(dates?'<div class="meta">'+dates+'</div>':"")
-      +(e.leave?'<div class="meta"><span class="leavepill">Leave '+e.leave+' CT</span></div>':"")
+      +(e.leave?'<div class="meta"><span class="leavepill">Leave by '+e.leave+' CT</span></div>':"")
       +'<div class="meta">'+(e.kind==="tournament"&&!e.start?"":timeHTML(e)+" · ")+placeHTML(e)+(e.kit?" · "+esc(e.kit):"")+'</div>'
       +(e.notes?'<div class="meta">'+esc(e.notes)+'</div>':"")
       +(e.link?'<div class="meta"><a href="'+esc(e.link.url)+'" target="_blank" rel="noopener">'+esc(e.link.label)+'</a></div>':"")
@@ -153,8 +187,11 @@
     var nx=up.filter(function(e){return e.kind!=="practice"&&!e.not_ethan})[0];
     var N=document.getElementById("next");
     if(nx){
-      var big=nx.leave?('Leave '+nx.leave+' <small>CT</small>'):(nx.start?fmtT(nx.start)+' <small>CT '+(nx.sport==="football"?"game time":"start")+'</small>':'<span class="tbd">Time TBD</span>');
-      N.innerHTML='<p class="lbl">Next up · '+nice(nx.date)+(nx.end_date?" – "+nice(nx.end_date):"")+'</p><div class="leave">'+big+'</div>'
+      var cap=nx.leave?'Leave by':(nx.start?(nx.sport==="football"?"Game time":"Start"):"Time");
+      var big=nx.leave?(nx.leave+' <small>CT</small>'):(nx.start?fmtT(nx.start)+' <small>CT</small>':'<span class="tbd">TBD</span>');
+      N.className="card next "+nx.sport+"-next";
+      N.innerHTML='<div class="sb-top"><p class="lbl">Next up</p><p class="sb-date">'+(ICON[nx.sport]||"")+' '+nice(nx.date)+(nx.end_date?" – "+nice(nx.end_date):"")+'</p></div>'
+        +'<div class="sb-board"><div class="sb-cap">'+cap+'</div><div class="leave">'+big+'</div></div>'
         +'<div class="what">'+esc(nx.title)+' — '+esc(nx.detail)+'</div>'
         +(nx.start?'<p class="meta">'+(nx.sport==="soccer"&&nx.kind==="game"?"Kickoff ":"")+timeHTML(nx)+'</p>':"")
         +'<p class="meta">'+placeHTML(nx)+(nx.kit?" · "+esc(nx.kit):"")+'</p>'+(nx.notes?'<p class="meta">'+esc(nx.notes)+'</p>':"");
@@ -168,7 +205,7 @@
     var html="",wk=null;
     sel.forEach(function(e){var w=weekStart(e.date); if(w!==wk){wk=w;html+='<div class="week">Week of '+nice(w)+'</div>';} html+=row(e);});
     document.getElementById("list").innerHTML=html||'<p class="meta">Nothing here yet.</p>';
-    document.getElementById("rem-list").innerHTML=DATA.reminders.map(function(r){return '<li><span class="tag '+r.sport+'">'+r.sport+'</span>'+esc(r.text)+'</li>'}).join("");
+    document.getElementById("rem-list").innerHTML=DATA.reminders.map(function(r){return '<li>'+sportTag(r.sport)+esc(r.text)+'</li>'}).join("");
     document.getElementById("recent").innerHTML=past.map(row).join("");
     document.getElementById("recent-sec").classList.toggle("hidden",!past.length);
     var u=new Date(DATA.updated),us=u.toLocaleString("en-US",{timeZone:"America/Chicago",weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
