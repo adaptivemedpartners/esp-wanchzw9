@@ -79,6 +79,9 @@
   .leavepill{display:inline-block;background:var(--gold);color:#111;border-radius:3px;padding:2px 9px;font:700 14px "Oswald",sans-serif;letter-spacing:.06em;text-transform:uppercase}
   .soccer-ev .leavepill{background:var(--turf);color:#04140a}
   .tbd{color:var(--red);font-weight:700}
+  .kitpill{display:inline-block;border-radius:3px;padding:2px 9px;font:700 14px "Oswald",sans-serif;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);background:#1b2430;color:#eef2f6}
+  .kitpill .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:0;border:1px solid rgba(255,255,255,.6)}
+  .kitpill.none{color:var(--muted);border-style:dashed;font-weight:500}
   a{color:#7fd4ff;text-decoration:none;border-bottom:1px solid rgba(127,212,255,.35)}
   ul{margin:0;padding-left:20px} li{margin:8px 0;font-size:14.5px}
   footer{padding:20px 16px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:18px}
@@ -170,13 +173,19 @@
     if(e.setting) h+='<span class="tag setting">'+e.setting+'</span>';
     if(e.flag) h+='<span class="tag flag">'+esc(e.flag)+'</span>';
     return h;}
+  function needsKit(e){return e.sport==="soccer"&&(e.kind==="game"||e.kind==="tournament")}
+  var KITC={white:"#ffffff",blue:"#1f5fd1",navy:"#0f2140",black:"#000000",red:"#e63946",gold:"#ffc83d",yellow:"#ffd400",green:"#1db954",grey:"#9aa4ae",gray:"#9aa4ae",orange:"#ff7a1a"};
+  function kitHTML(e){if(!needsKit(e)) return "";
+    if(!e.kit) return '<span class="kitpill none">Kit: not posted yet</span>';
+    var c=KITC[String(e.kit).toLowerCase().split(/\s+/)[0]];
+    return '<span class="kitpill">'+(c?'<i class="sw" style="background:'+c+'"></i>':'')+'Kit: '+esc(e.kit)+'</span>';}
   function row(e){
     var d=dObj(e.date),dates=e.end_date?nice(e.date)+" – "+nice(e.end_date):"";
     return '<div class="ev '+e.sport+'-ev'+(e.not_ethan?" dim":"")+'"><div class="d"><div class="dow">'+DOW[d.getUTCDay()]+'</div><div class="dn">'+d.getUTCDate()+'</div><div class="mo">'+MON[d.getUTCMonth()]+(e.date_approx?" ~":"")+'</div></div><div class="body">'
       +tags(e)+'<div class="t">'+esc(e.title)+'</div><div class="x">'+esc(e.detail)+'</div>'
       +(dates?'<div class="meta">'+dates+'</div>':"")
-      +(e.leave?'<div class="meta"><span class="leavepill">Leave by '+e.leave+' CT</span></div>':"")
-      +'<div class="meta">'+(e.kind==="tournament"&&!e.start?"":timeHTML(e)+" · ")+placeHTML(e)+(e.kit?" · "+esc(e.kit):"")+'</div>'
+      +((e.leave||needsKit(e))?'<div class="meta">'+(e.leave?'<span class="leavepill">Leave by '+e.leave+' CT</span> ':'')+kitHTML(e)+'</div>':"")
+      +'<div class="meta">'+(e.kind==="tournament"&&!e.start?"":timeHTML(e)+" · ")+placeHTML(e)+'</div>'
       +(e.notes?'<div class="meta">'+esc(e.notes)+'</div>':"")
       +(e.link?'<div class="meta"><a href="'+esc(e.link.url)+'" target="_blank" rel="noopener">'+esc(e.link.label)+'</a></div>':"")
       +'</div></div>';
@@ -194,7 +203,7 @@
         +'<div class="sb-board"><div class="sb-cap">'+cap+'</div><div class="leave">'+big+'</div></div>'
         +'<div class="what">'+esc(nx.title)+' — '+esc(nx.detail)+'</div>'
         +(nx.start?'<p class="meta">'+(nx.sport==="soccer"&&nx.kind==="game"?"Kickoff ":"")+timeHTML(nx)+'</p>':"")
-        +'<p class="meta">'+placeHTML(nx)+(nx.kit?" · "+esc(nx.kit):"")+'</p>'+(nx.notes?'<p class="meta">'+esc(nx.notes)+'</p>':"");
+        +(needsKit(nx)?'<p class="meta">'+kitHTML(nx)+'</p>':'')+'<p class="meta">'+placeHTML(nx)+'</p>'+(nx.notes?'<p class="meta">'+esc(nx.notes)+'</p>':"");
     } else N.innerHTML='<p class="lbl">Next up</p><p class="meta">Nothing scheduled yet.</p>';
     var C=[["games","Games & events"],["soccer","Soccer"],["football","Football"],["practice","Practice"],["all","Everything"]];
     document.getElementById("chips").innerHTML=C.map(function(c){return '<button class="chip'+(filter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
