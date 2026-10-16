@@ -139,7 +139,7 @@
     (DATA.recurring||[]).forEach(function(r){
       var d=dObj(r.from),end=dObj(r.until);
       while(d<=end){var s=dStr(d);
-        if(r.days.indexOf(DOW[d.getUTCDay()])>=0){var ex=(r.exceptions||{})[s]||{};
+        if(r.days.indexOf(DOW[d.getUTCDay()])>=0&&!((r.exceptions||{})[s]||{}).skip){var ex=(r.exceptions||{})[s]||{};
           out.push({id:r.id+"-"+s,sport:r.sport,kind:r.kind,title:r.title,detail:r.detail,date:s,start:r.start,end:r.end,
             place:ex.place_text?null:r.place,place_text:ex.place_text||null,field:("field" in ex)?ex.field:r.field});}
         d.setUTCDate(d.getUTCDate()+1);}
