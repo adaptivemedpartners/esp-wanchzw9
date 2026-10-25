@@ -37,14 +37,14 @@
   .num{font-family:"Bebas Neue",sans-serif;font-size:88px;line-height:.86;color:transparent;-webkit-text-stroke:2px var(--orange);text-shadow:4px 4px 0 rgba(255,122,26,.25)}
   .hero-sub{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;font:600 13px "Oswald",sans-serif;letter-spacing:.12em;text-transform:uppercase}
   .hero-sub span{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:4px;padding:4px 9px}
-  .hero-sub .s{color:var(--turf);border-color:rgba(57,255,106,.4)} .hero-sub .f{color:var(--orange);border-color:rgba(255,122,26,.45)}
+  .hero-sub .s{color:var(--turf);border-color:rgba(57,255,106,.4)} .hero-sub .f{color:var(--orange);border-color:rgba(255,122,26,.45)} .hero-sub .b{color:#c9a0ff;border-color:rgba(176,108,255,.45)}
   section{padding:20px 16px 4px}
   h2{font:700 24px "Oswald",sans-serif;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;display:flex;align-items:center;gap:10px}
   h2:before{content:"";width:6px;height:22px;background:var(--turf);transform:skewX(-14deg)}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
   /* scoreboard next up */
   .next{padding:0;overflow:hidden;border:2px solid #263241;background:#090c10;box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.03)}
-  .next.soccer-next{border-color:rgba(57,255,106,.55)} .next.football-next{border-color:rgba(255,122,26,.6)}
+  .next.soccer-next{border-color:rgba(57,255,106,.55)} .next.football-next{border-color:rgba(255,122,26,.6)} .next.band-next{border-color:rgba(176,108,255,.6)}
   .sb-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(90deg,var(--navy),#14294d);border-bottom:2px solid #000}
   .next .lbl{font:700 14px "Oswald",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#fff;margin:0}
   .sb-date{margin:0;font:600 14px "Oswald",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
@@ -64,7 +64,7 @@
   .week{font:600 13px "Oswald",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:18px 2px 8px;display:flex;align-items:center;gap:10px}
   .week:after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,#2d3a49 0 8px,transparent 8px 14px)}
   .ev{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-left:5px solid #3a4656;border-radius:8px;padding:11px 12px;margin:0 0 8px}
-  .ev.soccer-ev{border-left-color:var(--turf-d)} .ev.football-ev{border-left-color:var(--orange)}
+  .ev.soccer-ev{border-left-color:var(--turf-d)} .ev.football-ev{border-left-color:var(--orange)} .ev.band-ev{border-left-color:#b06cff}
   .ev.dim{opacity:.45;filter:grayscale(.8)}
   .ev .body{min-width:0;flex:1}
   .d{min-width:50px;text-align:center;border-right:1px solid var(--line);padding-right:10px}
@@ -77,6 +77,7 @@
   .tag i{font-style:normal;font-size:12px;letter-spacing:0}
   .soccer{background:rgba(57,255,106,.14);color:var(--turf);border:1px solid rgba(57,255,106,.35)}
   .football{background:rgba(255,122,26,.14);color:var(--orange);border:1px solid rgba(255,122,26,.4)}
+  .band{background:rgba(176,108,255,.14);color:#c9a0ff;border:1px solid rgba(176,108,255,.45)}
   .practice{background:rgba(120,160,255,.12);color:#9db8ff;border:1px solid rgba(120,160,255,.3)}
   .setting,.tourney{background:rgba(255,255,255,.06);color:#d6dee8;border:1px solid rgba(255,255,255,.15)}
   .flag{background:rgba(230,57,70,.15);color:#ff8a93;border:1px solid rgba(230,57,70,.4)}
@@ -105,7 +106,7 @@
   <header class="hero">
     <p class="eyebrow">Freeman · Fall 2026 · Game Day</p>
     <div class="jersey"><h1 class="names">Ethan</h1><span class="num">#19</span></div>
-    <p class="hero-sub"><span class="s">⚽ Soccer</span><span class="f">🏈 Football</span><span>All times CT</span></p>
+    <p class="hero-sub"><span class="s">⚽ Soccer</span><span class="f">🏈 Football</span><span class="b">🎺 Band</span><span>All times CT</span></p>
   </header>
 
   <div id="app">
@@ -169,7 +170,7 @@
   }
   function isPast(e,n){var last=e.end_date||e.date; if(last<n.date) return true;
     if(last>n.date) return false; var t=e.end||e.start; return t? toMin(t)+(e.end?0:90)<toMin(n.time):false;}
-  var ICON={soccer:"\u26BD",football:"\uD83C\uDFC8"};
+  var ICON={soccer:"\u26BD",football:"\uD83C\uDFC8",band:"\uD83C\uDFBA"};
   function sportTag(s){return '<span class="tag '+s+'">'+(ICON[s]?'<i>'+ICON[s]+'</i>':'')+s+'</span>'}
   function tags(e){var h=sportTag(e.sport);
     if(e.kind==="practice") h+='<span class="tag practice">practice</span>';
@@ -200,7 +201,7 @@
     var nx=up.filter(function(e){return e.kind!=="practice"&&!e.not_ethan})[0];
     var N=document.getElementById("next");
     if(nx){
-      var cap=nx.leave?'Leave by':(nx.start?(nx.sport==="football"?"Game time":"Start"):"Time");
+      var cap=nx.leave?'Leave by':(nx.start?(nx.sport==="football"?"Game time":(nx.sport==="band"?"Call time":"Start")):"Time");
       var big=nx.leave?(nx.leave+' <small>CT</small>'):(nx.start?fmtT(nx.start)+' <small>CT</small>':'<span class="tbd">TBD</span>');
       N.className="card next "+nx.sport+"-next";
       N.innerHTML='<div class="sb-top"><p class="lbl">Next up</p><p class="sb-date">'+(ICON[nx.sport]||"")+' '+nice(nx.date)+(nx.end_date?" – "+nice(nx.end_date):"")+'</p></div>'
@@ -209,7 +210,7 @@
         +(nx.start?'<p class="meta">'+(nx.sport==="soccer"&&nx.kind==="game"?"Kickoff ":"")+timeHTML(nx)+'</p>':"")
         +(needsKit(nx)?'<p class="meta">'+kitHTML(nx)+'</p>':'')+'<p class="meta">'+placeHTML(nx)+'</p>'+(nx.notes?'<p class="meta">'+esc(nx.notes)+'</p>':"");
     } else N.innerHTML='<p class="lbl">Next up</p><p class="meta">Nothing scheduled yet.</p>';
-    var C=[["games","Games & events"],["soccer","Soccer"],["football","Football"],["practice","Practice"],["all","Everything"]];
+    var C=[["games","Games & events"],["soccer","Soccer"],["football","Football"],["band","Band"],["practice","Practice"],["all","Everything"]];
     document.getElementById("chips").innerHTML=C.map(function(c){return '<button class="chip'+(filter===c[0]?" on":"")+'" data-f="'+c[0]+'">'+c[1]+'</button>'}).join("");
     Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(b){b.onclick=function(){filter=b.dataset.f;render()}});
     var sel=up.filter(function(e){
@@ -222,7 +223,7 @@
     document.getElementById("recent").innerHTML=past.map(row).join("");
     document.getElementById("recent-sec").classList.toggle("hidden",!past.length);
     var u=new Date(DATA.updated),us=u.toLocaleString("en-US",{timeZone:"America/Chicago",weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
-    document.getElementById("foot").innerHTML='<p><strong>Updated '+us+' CT</strong></p><p>Soccer: '+esc(DATA.teams.soccer.name)+' · jersey '+esc(DATA.teams.soccer.jersey)+'<br>Football: '+esc(DATA.teams.football.name)+' · '+esc(DATA.teams.football.coach)+'</p><p>Sources:</p><ul>'+DATA.sources.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ul>';
+    document.getElementById("foot").innerHTML='<p><strong>Updated '+us+' CT</strong></p><p>Soccer: '+esc(DATA.teams.soccer.name)+' · jersey '+esc(DATA.teams.soccer.jersey)+'<br>Football: '+esc(DATA.teams.football.name)+' · '+esc(DATA.teams.football.coach)+(DATA.teams.band?'<br>Band: '+esc(DATA.teams.band.name)+' · Director '+esc(DATA.teams.band.director):'')+'</p><p>Sources:</p><ul>'+DATA.sources.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ul>';
   }
 })();
 </script>
